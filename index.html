@@ -46,8 +46,8 @@
 		<label>disks<input id='disks' type='range' min='1' max='30' step='1' value='6' oninput='loader.disks = this.value'></label>
 		<label>period<input id='period' type='range' min='.1' max='5' step='.01' value='1' oninput='loader.period = this.value'></label>
 		<div id='color-wrapper'>
-			<label>color <input id='color' type='color'></label>
-			<label style='flex: 1;'>opacity <input id='opacity' type='range' min='0' max='255' step='1' value='85'></label>
+			<label>color <input id='color' type='color' onchange='createColor()'></label>
+			<label style='flex: 1;'>opacity <input id='opacity' type='range' min='0' max='255' step='1' value='85' oninput='createColor()'></label>
 		</div>
 		<label>size<input id='size' type='range' min='.1' max='10' step='.01' value='1' oninput='loader.size = this.value + `em`'></label>
 		<script>
@@ -56,13 +56,9 @@
 				color = document.getElementById(`color`),
 				opacity = document.getElementById(`opacity`);
 
-			color.addEventListener(`input`, function(){
-				loader.color = this.value + Number(opacity.value).toString(16);
-			});
-
-			opacity.addEventListener(`input`, function(){
-				loader.color = color.value + Number(this.value).toString(16);
-			});
+			function createColor() {
+				loader.color = color.value + Number(opacity.value).toString(16).padStart(2, `0`);
+			}
 		</script>
 	</body>
 </html>
